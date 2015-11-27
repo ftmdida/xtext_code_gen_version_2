@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.xtext.example.mydslsample/src-gen" editDirectory="/org.xtext.example.mydslsample.edit/src"
+    editorDirectory="/org.xtext.example.mydslsample.editor/src" modelPluginID="org.xtext.example.mydslsample"
+    forceOverwrite="true" modelName="MyDslSample" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.xtext.example.mydslsample.edit"
+    editorPluginID="org.xtext.example.mydslsample.editor" runtimeVersion="2.10">
+  <genPackages prefix="MyDslSample" basePackage="org.xtext.example.mydsl" disposableProviderFactory="true"
+      fileExtensions="mydsl" ecorePackage="MyDslSample.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="MyDslSample.ecore#//Protocol">
+      <genEnumLiterals ecoreEnumLiteral="MyDslSample.ecore#//Protocol/HTTP"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDslSample.ecore#//Protocol/HTTPS"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDslSample.ecore#//Protocol/FTP"/>
+      <genEnumLiterals ecoreEnumLiteral="MyDslSample.ecore#//Protocol/SSH"/>
+    </genEnums>
+    <genClasses ecoreClass="MyDslSample.ecore#//HttpShieldModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//HttpShieldModel/agents"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//Agent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//Agent/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//Agent/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//Agent/filename"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//Agent/source"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//User">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//User/requests"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//Attacker">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//Attacker/requests"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//Request">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//Request/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//Request/source"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//Request/destination"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//Request/port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//Request/data"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//Request/protocol"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//MaliciousRequest"/>
+    <genClasses ecoreClass="MyDslSample.ecore#//NormalRequest"/>
+    <genClasses ecoreClass="MyDslSample.ecore#//Defender">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//Defender/securityPolicylist"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//SecurityPolicyList">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//SecurityPolicyList/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//SecurityPolicyList/securityPolicies"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//SecurityPolicyList/conditions"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//SecurityPolicy">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//SecurityPolicy/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//SecurityPolicy/endPoint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//SecurityPolicy/conditionlist"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//SecurityPolicy/operationList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//SecurityPolicy/trueActionList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//SecurityPolicy/falseActionList"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//Condition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//Condition/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDslSample.ecore#//Condition/subConditionList"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//Action">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//Action/action"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//SubCondition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//SubCondition/name"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//ProtocolCheck">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//ProtocolCheck/value"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//HTTPMethodCheck">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//HTTPMethodCheck/value"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//RegExpMatch">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//RegExpMatch/value"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//FrequencyCheck">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//FrequencyCheck/value"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//HTTPParamLenCheck">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//HTTPParamLenCheck/value"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//EndPoint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//EndPoint/port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//EndPoint/protocol"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDslSample.ecore#//DropRequest"/>
+    <genClasses ecoreClass="MyDslSample.ecore#//BlockSender"/>
+    <genClasses ecoreClass="MyDslSample.ecore#//PassRequest"/>
+    <genClasses ecoreClass="MyDslSample.ecore#//IPAddress">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//IPAddress/byte1"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//IPAddress/byte2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//IPAddress/byte3"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDslSample.ecore#//IPAddress/byte4"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,135 @@
+grammar org.xtext.example.mydsl.MyDslSample with org.eclipse.xtext.common.Terminals
+
+generate myDslSample "http://www.xtext.org/example/mydsl/MyDslSample"
+
+HttpShieldModel:
+	agents+=Agent*;
+	
+Agent: 
+	User | Attacker | Defender
+;
+
+User:
+	type='User' name=ID '{'
+	'belongTo' filename= STRING 
+	'source: ' source=IPAddress
+	(requests += NormalRequest)*
+	'}'
+;
+	
+Attacker:
+	type='Attacker' name=ID '{'
+	'belongTo' filename= STRING 
+	'source: ' source= IPAddress
+	(requests += MaliciousRequest)*
+	'}' 
+;
+
+Request: 
+	 NormalRequest | MaliciousRequest
+;
+
+MaliciousRequest:
+	'MaliciousRequest' name=ID '{'
+	 	'source: ' source= IPAddress
+	 	'destination: ' destination=IPAddress
+	 	'port: ' port=INT
+	 	'data: ' data= STRING
+	 	'protocol: ' protocol=Protocol
+	 '}' 
+;
+
+NormalRequest:
+	'NormalRequest' name=ID '{'
+	 	'source: ' source= IPAddress
+	 	'destination: ' destination=IPAddress
+	 	'port: ' port=INT
+	 	'data: ' data= STRING
+	 	'protocol: ' protocol=Protocol
+	 '}'
+;
+	 
+
+Defender:
+	type='Defender' name=ID  '{'
+	'belongTo' filename= STRING 
+	'source: ' source= IPAddress
+	securityPolicylist = SecurityPolicyList
+	'}'
+;
+
+SecurityPolicyList:
+	'SecurityPolicyList' name=ID '{'
+		(securityPolicies += SecurityPolicy)*
+		(conditions += Condition)*
+	'}'
+;
+	
+SecurityPolicy:
+	'SecurityPolicy' name=ID '{' 
+		endPoint=EndPoint
+		'if' '(' (conditionlist+=[Condition]) (operationList+=('&'|'|') (conditionlist+=[Condition]))*  ')' 'then'
+			trueActionList+=Action ('&' (trueActionList+=Action))*
+		'otherwise'
+			falseActionList+=Action ('&' (falseActionList+=Action))*
+'}'
+;
+
+Condition:
+	'Condition' name=ID '{'
+		subConditionList+=SubCondition ('&' (subConditionList+=SubCondition))*
+	'}'
+;	
+	
+Action:
+	DropRequest | BlockSender | PassRequest;
+
+SubCondition:
+	
+	ProtocolCheck | HTTPMethodCheck | RegExpMatch | FrequencyCheck | HTTPParamLenCheck
+;
+
+ProtocolCheck:
+	name='isRequestProtocolEqualsTo' '(' value=Protocol ')'
+;
+
+HTTPMethodCheck:
+	name='isHTTPMethodEqualsTo' '(' value=("GET" | "POST" | "HEAD" | "DELETE" | "PUT") ')'
+;
+RegExpMatch:
+	name='isParaContentMatchRegExp' '(' value=STRING ')'
+;
+
+FrequencyCheck:
+	name='isRequestFrequencyLessThan' '(' value=INT ')'
+;
+
+HTTPParamLenCheck:
+	name='isParaLenghtLessThan' '(' value=INT ')' |
+	name='isParaLenghtGreaterThan' '(' value=INT ')' |
+	name='isParaLenghtEqualsTo' '(' value=INT ')'
+;
+
+EndPoint:
+	 'endpoint' '(' port=INT ',' protocol=Protocol ')'
+;
+
+DropRequest:
+	action='drop'
+;
+
+BlockSender:
+	action='block'
+;
+
+PassRequest:
+	action='pass'	
+;
+
+IPAddress:
+     byte1=INT '.' byte2=INT '.' byte3=INT '.' byte4=INT 
+;
+
+enum Protocol:
+	HTTP='HTTP' | HTTPS='HTTPS' | FTP='FTP' | SSH='SSH'
+;
