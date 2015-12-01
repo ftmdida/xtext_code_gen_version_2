@@ -224,7 +224,7 @@ class MyDslSampleGenerator implements IGenerator {
 	  <?xml version="1.0" encoding="UTF-8"?>
 
 	  <!-- New XML document created with EditiX XML Editor (http://www.editix.com) at Fri Oct 30 09:32:34 CDT 2015 -->
-	  <defender name="«e.name»" sourceIP="«e.source»">
+	  <defender name="«e.name»" sourceIP="«e.source.byte1 + "." + e.source.byte2 +"."+  e.source.byte3+"."+ e.source.byte4»">
 		  <securityPolicyList>
 		  	«e.compile_gen_xml_defender_securityPolicyList»
 		  </securityPolicyList>	
